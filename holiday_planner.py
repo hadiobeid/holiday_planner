@@ -2,7 +2,7 @@ import config as cfg
 import requests as r
 import pandas as pd
 from datetime import datetime, date, timedelta
-
+from days_to_book_off import Days_to_book_off
 def _get_all_dates_between_two_date(year: int) -> list:
     """Get all Dates in a year, and names of those dates
 
@@ -17,11 +17,12 @@ def _get_all_dates_between_two_date(year: int) -> list:
     end_date = date(year, 12,31)
     all_dates = []
     all_days_names = []
-    for i in range(int((end_date - start_date).days) + 1):
+    days_range = range(int((end_date - start_date).days) + 1)
+    for i in days_range:
         temp_date = start_date + timedelta(days=i)
         all_dates.append(temp_date)
         all_days_names.append(temp_date.strftime("%A"))
-    return all_dates, all_days_names
+    return all_dates, all_days_names, days_range
 
 def _get_date_from_date_string(date_str: list, year) -> list:
     dates = []
@@ -42,13 +43,20 @@ year = datetime.now().year
 country = 'united-kingdom'
 Number_of_holidays = 22
 
-all_dates, all_date_names = _get_all_dates_between_two_date(year)
+all_dates, all_date_names, days_range = _get_all_dates_between_two_date(year)
 country_holidays = _get_country_holidays(country, year)
-dates_dict = {}
+dates_dict = []
 for i_date, date_name in zip(all_dates, all_date_names):
     isholiday = 1 if i_date in country_holidays or date_name in cfg.WEEKEND_DAYS else 0
-    dates_dict[str(i_date)] = [isholiday, date_name]
+    dates_dict.append([isholiday, date_name])
+_dates_dict, remaining_days = Days_to_book_off(Number_of_holidays, dates_dict).min_recommended_booker()
 
+dates_dict = {}
+i = 0
+for value in _dates_dict:
+    dates_dict[str(all_dates[i])] = value
+    i += 1
 # TODO: Remove later this is only for testing
 df = pd.DataFrame(dates_dict)
 df.to_csv('./test.csv', index=False)
+print(remaining_days)
