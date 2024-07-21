@@ -17,7 +17,7 @@ def _get_all_dates_between_two_date(year: int) -> list:
     end_date = date(year, 12,31)
     all_dates = []
     all_days_names = []
-    for i in range(int((end_date - start_date).days)):
+    for i in range(int((end_date - start_date).days) + 1):
         temp_date = start_date + timedelta(days=i)
         all_dates.append(temp_date)
         all_days_names.append(temp_date.strftime("%A"))
@@ -40,7 +40,7 @@ def _get_country_holidays(country: str, year: int) -> list:
 # TODO: Remove later this is only test values
 year = datetime.now().year
 country = 'united-kingdom'
-
+Number_of_holidays = 22
 
 all_dates, all_date_names = _get_all_dates_between_two_date(year)
 country_holidays = _get_country_holidays(country, year)
@@ -48,6 +48,7 @@ dates_dict = {}
 for i_date, date_name in zip(all_dates, all_date_names):
     isholiday = 1 if i_date in country_holidays or date_name in cfg.WEEKEND_DAYS else 0
     dates_dict[str(i_date)] = [isholiday, date_name]
+
 # TODO: Remove later this is only for testing
 df = pd.DataFrame(dates_dict)
-df.to_csv('./text.csv', index=False)
+df.to_csv('./test.csv', index=False)
