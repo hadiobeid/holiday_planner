@@ -23,7 +23,18 @@ def _get_all_dates_between_two_date(year: int) -> list:
         all_days_names.append(temp_date.strftime("%A"))
     return all_dates, all_days_names
 
+def _get_date_from_date_string(date_str: list, year) -> list:
+    dates = []
+    for i in date_str:
+        splited = str(i).split(' ')
+        month_num = cfg.MONTH_AND_NUM[splited[0]]
+        day = int(splited[1])
+        dates.append(date(year, month_num, day))
+    return dates
+
 def _get_country_holidays(country: str, year: int) -> list:
     url = cfg.BANK_HOLIDAYS_URL + country + '/' + str(year)
     dates_list = pd.read_html(url)[0]['Date'].to_list()
-    return dates_list
+    return _get_date_from_date_string(dates_list, year)
+
+
