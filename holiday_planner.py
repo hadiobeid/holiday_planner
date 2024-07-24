@@ -1,8 +1,9 @@
 import config as cfg
-import requests as r
 import pandas as pd
 from datetime import datetime, date, timedelta
 from days_to_book_off import Days_to_book_off
+
+
 def _get_all_dates_between_two_date(year: int) -> list:
     """Get all Dates in a year, and names of those dates
 
