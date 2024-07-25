@@ -4,11 +4,11 @@ from datetime import datetime, date, timedelta
 from days_to_book_off import Days_to_book_off
 
 class HolidayPlanner:
-    def __init__(self) -> None:
+    def __init__(self, Number_of_holidays, country, year) -> None:
         # TODO: Remove later this is only test values
-        self.year = datetime.now().year
-        self.country = 'united-kingdom'
-        self.Number_of_holidays = 22  
+        self.year = year
+        self.country = country
+        self.Number_of_holidays = Number_of_holidays 
         
     def _get_all_dates_between_two_date(self, year: int) -> list:
         """Get all Dates in a year, and names of those dates
@@ -20,6 +20,7 @@ class HolidayPlanner:
             list: all the dates in that year
             list: names of all dates in order
         """
+        print(type(year))
         start_date = date(year, 1,1)
         end_date = date(year, 12,31)
         all_dates = []
