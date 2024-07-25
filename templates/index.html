@@ -21,14 +21,30 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            let holidays_js = {{holidays | tojson}};
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
+                initialView: 'dayGridMonth',
+                events: [
+                    {% for holiday, types in zip(holidays, holiday_types)%}
+                    {
+                        start: '{{holiday}}', 
+                        display: 'background',
+                        {%if types == 'bank holiday'%}
+                        color: 'yellow'
+                        {%else%}
+                        color: 'red'
+                        {%endif%}
+                    },
+                    {%endfor%}
+                ]
+                
             });
             
             calendar.render();
-            let _startdate = new Date('01/01/2025')
+            let _startdate = new Date('01/01/2024')
             calendar.gotoDate(_startdate)
               });
+
         </script>
     </head>
 

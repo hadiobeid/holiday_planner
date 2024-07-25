@@ -1,4 +1,4 @@
-import app.config as cfg
+import config as cfg
 from datetime import date, timedelta
 
 class Days_to_book_off:
@@ -13,6 +13,7 @@ class Days_to_book_off:
     def _check_and_book_a_holiday(self, day_num):
         if 0 == self.dates_dict[day_num][0] and 0 < self.remaining_holidays:
             self.dates_dict[day_num][0] = 1
+            self.dates_dict[day_num][2] = 'generated'
             self.remaining_holidays -= 1
 
     def min_recommended_booker(self):
