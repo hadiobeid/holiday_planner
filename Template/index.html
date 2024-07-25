@@ -16,17 +16,26 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
         <link rel="stylesheet" href="./script.js">
-        <script src="./script.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            
+            calendar.render();
+            let _startdate = new Date('01/01/2025')
+            calendar.gotoDate(_startdate)
+              });
+        </script>
     </head>
 
     <body>
         <main>
             <div class="container">
-                <div class="dycalendar" id="dycalendar">
-
-                </div>
-            </div>
+            <div class="calendar" id="calendar"></div></div>
         </main>
         <!-- Bootstrap JavaScript Libraries -->
         <script
