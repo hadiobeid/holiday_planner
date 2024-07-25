@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>dycalendar</title>
+        <title>Holiday Planner</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -16,44 +16,268 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-        <link rel="stylesheet" href="./script.js">
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            let holidays_js = {{holidays | tojson}};
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: [
-                    {% for holiday, types in zip(holidays, holiday_types)%}
-                    {
-                        start: '{{holiday}}', 
-                        display: 'background',
-                        {%if types == 'bank holiday'%}
-                        color: 'yellow'
-                        {%else%}
-                        color: 'red'
-                        {%endif%}
-                    },
-                    {%endfor%}
-                ]
-                
-            });
-            
-            calendar.render();
-            let _startdate = new Date('01/01/2024')
-            calendar.gotoDate(_startdate)
-              });
-
-        </script>
     </head>
 
     <body>
+        <header>
+            <!-- place navbar here -->
+        </header>
         <main>
             <div class="container">
-            <div class="calendar" id="calendar"></div></div>
+                <form action="{{ url_for("home")}}" method="post">
+                <label for="available_holidays">Available Holidays</label>
+                <input type="number" id="available_holidays" name="available_holidays" value="0">
+                <label for="selected_year">Select Year</label>
+                <select name="selected_year" id="selected_year">
+                </select>
+                <label for="selected_country">Select A Country</label>
+                <select name="selected_country" id="selected_country">
+                    <option value="afghanistan">Afghanistan</option>
+                    <option value="albania">Albania</option>
+                    <option value="algeria">Algeria</option>
+                    <option value="american-samoa">American Samoa</option>
+                    <option value="andorra">Andorra</option>
+                    <option value="angola">Angola</option>
+                    <option value="anguilla">Anguilla</option>
+                    <option value="antigua-and-barbuda">Antigua and Barbuda</option>
+                    <option value="argentina">Argentina</option>
+                    <option value="armenia">Armenia</option>
+                    <option value="aruba">Aruba</option>
+                    <option value="australia">Australia</option>
+                    <option value="austria">Austria</option>
+                    <option value="azerbaijan">Azerbaijan</option>
+                    <option value="bahamas">Bahamas</option>
+                    <option value="bahrain">Bahrain</option>
+                    <option value="bangladesh">Bangladesh</option>
+                    <option value="barbados">Barbados</option>
+                    <option value="belarus">Belarus</option>
+                    <option value="belgium">Belgium</option>
+                    <option value="belize">Belize</option>
+                    <option value="benin">Benin</option>
+                    <option value="bermuda">Bermuda</option>
+                    <option value="bhutan">Bhutan</option>
+                    <option value="bolivia">Bolivia</option>
+                    <option value="bonaire-st-eustatius-saba">Bonaire, Sint Eustatius and Saba</option>
+                    <option value="bosnia-and-herzegovina">Bosnia and Herzegovina</option>
+                    <option value="botswana">Botswana</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="british-virgin-islands">British Virgin Islands</option>
+                    <option value="brunei">Brunei</option>
+                    <option value="bulgaria">Bulgaria</option>
+                    <option value="burkina-faso">Burkina Faso</option>
+                    <option value="burundi">Burundi</option>
+                    <option value="cambodia">Cambodia</option>
+                    <option value="cameroon">Cameroon</option>
+                    <option value="canada">Canada</option>
+                    <option value="cape-verde">Cape Verde</option>
+                    <option value="cayman-islands">Cayman Islands</option>
+                    <option value="central-african-republic">Central African Republic</option>
+                    <option value="chad">Chad</option>
+                    <option value="chile">Chile</option>
+                    <option value="china">China</option>
+                    <option value="colombia">Colombia</option>
+                    <option value="comoros">Comoros</option>
+                    <option value="congo">Congo</option>
+                    <option value="cook-islands">Cook Islands</option>
+                    <option value="costa-rica">Costa Rica</option>
+                    <option value="croatia">Croatia</option>
+                    <option value="cuba">Cuba</option>
+                    <option value="curacao">Curaçao</option>
+                    <option value="cyprus">Cyprus</option>
+                    <option value="czech-republic">Czech Republic</option>
+                    <option value="denmark">Denmark</option>
+                    <option value="djibouti">Djibouti</option>
+                    <option value="dominica">Dominica</option>
+                    <option value="dominican-republic">Dominican Republic</option>
+                    <option value="dr-congo">DR Congo</option>
+                    <option value="east-timor">East Timor</option>
+                    <option value="ecuador">Ecuador</option>
+                    <option value="egypt">Egypt</option>
+                    <option value="el-salvador">El Salvador</option>
+                    <option value="equatorial-guinea">Equatorial Guinea</option>
+                    <option value="eritrea">Eritrea</option>
+                    <option value="estonia">Estonia</option>
+                    <option value="swaziland">Eswatini</option>
+                    <option value="ethiopia">Ethiopia</option>
+                    <option value="Falkland-islands">Falkland Islands</option>
+                    <option value="faroe-islands">Faroe Islands</option>
+                    <option value="fiji">Fiji</option>
+                    <option value="finland">Finland</option>
+                    <option value="france">France</option>
+                    <option value="french-guiana">French Guiana</option>
+                    <option value="french-polynesia">French Polynesia</option>
+                    <option value="gabon">Gabon</option>
+                    <option value="gambia">Gambia</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="germany">Germany</option>
+                    <option value="ghana">Ghana</option>
+                    <option value="gibraltar">Gibraltar</option>
+                    <option value="greece">Greece</option>
+                    <option value="greenland">Greenland</option>
+                    <option value="grenada">Grenada</option>
+                    <option value="guadeloupe">Guadeloupe</option>
+                    <option value="guam">Guam</option>
+                    <option value="guatemala">Guatemala</option>
+                    <option value="guernsey">Guernsey</option>
+                    <option value="guinea">Guinea</option>
+                    <option value="guinea-bissau">Guinea-Bissau</option>
+                    <option value="guyana">Guyana</option>
+                    <option value="haiti">Haiti</option>
+                    <option value="honduras">Honduras</option>
+                    <option value="hong-kong">Hong Kong</option>
+                    <option value="hungary">Hungary</option>
+                    <option value="iceland">Iceland</option>
+                    <option value="india">India</option>
+                    <option value="indonesia">Indonesia</option>
+                    <option value="iran">Iran</option>
+                    <option value="iraq">Iraq</option>
+                    <option value="ireland">Ireland</option>
+                    <option value="isle-of-man">Isle of Man</option>
+                    <option value="israel">Israel</option>
+                    <option value="italy">Italy</option>
+                    <option value="ivory-coast">Ivory Coast</option>
+                    <option value="jamaica">Jamaica</option>
+                    <option value="japan">Japan</option>
+                    <option value="jersey">Jersey</option>
+                    <option value="jordan">Jordan</option>
+                    <option value="kazakhstan">Kazakhstan</option>
+                    <option value="kenya">Kenya</option>
+                    <option value="kiribati">Kiribati</option>
+                    <option value="kosovo">Kosovo</option>
+                    <option value="kuwait">Kuwait</option>
+                    <option value="kyrgyzstan">Kyrgyzstan</option>
+                    <option value="lao">Lao</option>
+                    <option value="latvia">Latvia</option>
+                    <option value="lebanon">Lebanon</option>
+                    <option value="lesotho">Lesotho</option>
+                    <option value="liberia">Liberia</option>
+                    <option value="libya">Libya</option>
+                    <option value="liechtenstein">Liechtenstein</option>
+                    <option value="lithuania">Lithuania</option>
+                    <option value="luxembourg">Luxembourg</option>
+                    <option value="macau">Macau</option>
+                    <option value="madagascar">Madagascar</option>
+                    <option value="malawi">Malawi</option>
+                    <option value="malaysia">Malaysia</option>
+                    <option value="maldives">Maldives</option>
+                    <option value="mali">Mali</option>
+                    <option value="malta">Malta</option>
+                    <option value="martinique">Martinique</option>
+                    <option value="mauritania">Mauritania</option>
+                    <option value="mauritius">Mauritius</option>
+                    <option value="mexico">Mexico</option>
+                    <option value="moldova">Moldova</option>
+                    <option value="monaco">Monaco</option>
+                    <option value="mongolia">Mongolia</option>
+                    <option value="montenegro">Montenegro</option>
+                    <option value="montserrat">Montserrat</option>
+                    <option value="morocco">Morocco</option>
+                    <option value="mozambique">Mozambique</option>
+                    <option value="myanmar">Myanmar</option>
+                    <option value="namibia">Namibia</option>
+                    <option value="nepal">Nepal</option>
+                    <option value="netherlands">Netherlands</option>
+                    <option value="new-caledonia">New Caledonia</option>
+                    <option value="new-zealand">New Zealand</option>
+                    <option value="nicaragua">Nicaragua</option>
+                    <option value="niger">Niger</option>
+                    <option value="nigeria">Nigeria</option>
+                    <option value="north-korea">North Korea</option>
+                    <option value="macedonia">North Macedonia</option>
+                    <option value="norway">Norway</option>
+                    <option value="oman">Oman</option>
+                    <option value="pakistan">Pakistan</option>
+                    <option value="palestine">Palestine</option>
+                    <option value="panama">Panama</option>
+                    <option value="papua-new-guinea">Papua New Guinea</option>
+                    <option value="paraguay">Paraguay</option>
+                    <option value="peru">Peru</option>
+                    <option value="philippines">Philippines</option>
+                    <option value="poland">Poland</option>
+                    <option value="portugal">Portugal</option>
+                    <option value="puerto-rico">Puerto Rico</option>
+                    <option value="qatar">Qatar</option>
+                    <option value="romania">Romania</option>
+                    <option value="russia">Russia</option>
+                    <option value="rwanda">Rwanda</option>
+                    <option value="saint-barthelemy">Saint Barthélemy</option>
+                    <option value="saint-kitts-and-nevis">Saint Kitts and Nevis</option>
+                    <option value="saint-lucia">Saint Lucia</option>
+                    <option value="saint-martin">Saint Martin</option>
+                    <option value="saint-vincent-and-the-grenadines">Saint Vincent and the Grenadines</option>
+                    <option value="samoa">Samoa</option>
+                    <option value="san-marino">San Marino</option>
+                    <option value="sao-tome-and-principe">São Tomé and Príncipe</option>
+                    <option value="saudi-arabia">Saudi Arabia</option>
+                    <option value="senegal">Senegal</option>
+                    <option value="serbia">Serbia</option>
+                    <option value="seychelles">Seychelles</option>
+                    <option value="sierra-leone">Sierra Leone</option>
+                    <option value="singapore">Singapore</option>
+                    <option value="sint-maarten">Sint Maarten</option>
+                    <option value="slovakia">Slovakia</option>
+                    <option value="slovenia">Slovenia</option>
+                    <option value="solomon-islands">Solomon Islands</option>
+                    <option value="somalia">Somalia</option>
+                    <option value="south-africa">South Africa</option>
+                    <option value="south-korea">South Korea</option>
+                    <option value="south-sudan">South Sudan</option>
+                    <option value="spain">Spain</option>
+                    <option value="sri-lanka">Sri Lanka</option>
+                    <option value="sudan">Sudan</option>
+                    <option value="suriname">Suriname</option>
+                    <option value="sweden">Sweden</option>
+                    <option value="switzerland">Switzerland</option>
+                    <option value="syria">Syria</option>
+                    <option value="taiwan">Taiwan</option>
+                    <option value="tajikistan">Tajikistan</option>
+                    <option value="tanzania">Tanzania</option>
+                    <option value="thailand">Thailand</option>
+                    <option value="togo">Togo</option>
+                    <option value="tonga">Tonga</option>
+                    <option value="trinidad-and-tobago">Trinidad and Tobago</option>
+                    <option value="tunisia">Tunisia</option>
+                    <option value="turkey">Turkiye</option>
+                    <option value="turkmenistan">Turkmenistan</option>
+                    <option value="turks-and-caicos-islands">Turks and Caicos Islands</option>
+                    <option value="tuvalu">Tuvalu</option>
+                    <option value="uganda">Uganda</option>
+                    <option value="ukraine">Ukraine</option>
+                    <option value="uae">United Arab Emirates</option>
+                    <option value="united-kingdom">United Kingdom</option>
+                    <option value="uruguay">Uruguay</option>
+                    <option value="us-virgin-islands">US Virgin Islands</option>
+                    <option value="usa">USA</option>
+                    <option value="uzbekistan">Uzbekistan</option>
+                    <option value="vanuatu">Vanuatu</option>
+                    <option value="vatican-city">Vatican City</option>
+                    <option value="venezuela">Venezuela</option>
+                    <option value="vietnam">Vietnam</option>
+                    <option value="wallis-and-futuna">Wallis and Futuna</option>
+                    <option value="yemen">Yemen</option>
+                    <option value="zambia">Zambia</option>
+                    <option value="zimbabwe">Zimbabwe</option>
+
+                </select>
+                <input type="submit" value="Submit">
+                </form>
+            </div>
         </main>
+        <footer>
+            <!-- place footer here -->
+        </footer>
         <!-- Bootstrap JavaScript Libraries -->
+         <script>
+            var select_year = document.getElementById('selected_year')
+            let today = new Date()
+            let current_year = today.getFullYear();
+            for (var i= 0; i<2; i++){
+                var opt = document.createElement('option');
+                opt.value = current_year + i;
+                opt.innerHTML = current_year+ i;
+                select_year.appendChild(opt);
+            }
+         </script>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
