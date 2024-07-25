@@ -1,4 +1,4 @@
-import config as cfg
+import app.config as cfg
 from datetime import date, timedelta
 
 class Days_to_book_off:

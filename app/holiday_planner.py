@@ -1,7 +1,7 @@
-import config as cfg
+import app.config as cfg
 import pandas as pd
 from datetime import datetime, date, timedelta
-from days_to_book_off import Days_to_book_off
+from app.days_to_book_off import Days_to_book_off
 
 
 def _get_all_dates_between_two_date(year: int) -> list:
