@@ -29,16 +29,16 @@
                         start: '{{holiday}}', 
                         display: 'background',
                         {%if types == 'bank holiday'%}
-                        color: 'yellow'
+                        color: '#0D5D56'
                         {%else%}
-                        color: 'red'
+                        color: '#72B01D'
                         {%endif%}
                     },
                     {%endfor%}
                 ]
                 
             });
-            
+            calendar.setOption('height', 700);
             calendar.render();
             let _startdate = new Date('01/01/{{year}}')
             calendar.gotoDate(_startdate)
@@ -49,7 +49,25 @@
 
     <body>
         <main>
-            <div class="container">
+            <div class="container" style="right: 2px;">
+                <div class="container" style="width: 20%; margin-top:5px;">
+                    <div class="row" style="margin-bottom:5px;">
+                        <div class="col">
+                            <div style="width:30px; height:30px; background-color: #0D5D56;right:0;"></div> 
+                        </div>
+                        <div class="col">
+                            Bank Holidays
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div style="width:30px; height:30px; background-color: #72B01D;"></div>
+                        </div>
+                        <div class="col">
+                            Suggestions
+                        </div>
+                    </div>
+                </div>
             <div class="calendar" id="calendar"></div></div>
         </main>
         <!-- Bootstrap JavaScript Libraries -->
