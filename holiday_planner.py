@@ -59,7 +59,8 @@ class HolidayPlanner:
             if 1 == isholiday and not date_name in cfg.WEEKEND_DAYS:
                 day_type = 'bank holiday'
             dates_dict.append([isholiday, date_name, day_type])
-        _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict).min_recommended_booker()
+        _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict).book_holidays()
+        print(remaining_days)
 
         holidays_dates_list = []
         day_types = []
