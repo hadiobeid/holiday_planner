@@ -36,7 +36,3 @@ class Days_to_book_off:
                 continue
             working_days_counter += 1
         return self.dates_dict, self.remaining_holidays
-                
-            
-            
-            
