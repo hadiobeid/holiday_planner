@@ -45,7 +45,7 @@
                 for(var _child in countries_states[country]){
                     console.log(_child);
                     var opt = document.createElement('option');
-                    opt.value = countries_states[country][_child][0];
+                    opt.value = '/' + countries_states[country][_child][0];
                     opt.innerHTML = countries_states[country][_child][1];
                     states_select.appendChild(opt);
                 }
