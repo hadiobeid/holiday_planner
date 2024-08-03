@@ -10,7 +10,7 @@ class Days_to_book_off:
         self.remaining_holidays = num_of_holidays
         self.dates_dict = dates_dict
         self.WEEKEND = cfg.WEEKEND_DAYS
-        self.number_of_year_days = len(dates_dict)
+        self.number_of_year_days = len(dates_dict) - 1
 
     def book_holidays(self):
         self._min_recommended_booker()
@@ -29,8 +29,7 @@ class Days_to_book_off:
         return self._left_search(current_index -1, holiday_count + self.dates_dict[current_index][0], days_count + 1)
 
     def _right_search(self, current_index: int, holiday_count: int, days_count: int):
-        print(self.number_of_year_days)
-        if self.dates_dict[current_index][1] in self.WEEKEND or current_index >= self.number_of_year_days - 1:
+        if self.dates_dict[current_index][1] in self.WEEKEND or current_index >= self.number_of_year_days:
             return 1, holiday_count, days_count
         return self._right_search(current_index + 1, holiday_count + self.dates_dict[current_index][0], days_count + 1)
 
@@ -46,23 +45,25 @@ class Days_to_book_off:
 
     def _min_recommended_booker(self):
         working_days_counter = 0
-        for i in range(1, len(self.dates_dict) -1):
+        i = 0
+        while i <= self.number_of_year_days:
             if 0 == self.remaining_holidays:
                 break
-            j_isholiday = self.dates_dict[i - 1][0]
-            i_isholiday = self.dates_dict[i][0]
-            k_isholiday = self.dates_dict[i + 1][0]
-            if 1 == j_isholiday and 1 == k_isholiday:
+            days = []
+            j = 0
+            while i +j <= self.number_of_year_days and j < self.min_holiday:
+                days.append(self.dates_dict[i + j][0])
+                j += 1
+
+            if sum(days) > 2 or working_days_counter >= self.max_working:
                 working_days_counter = 0
-                if 0 == i_isholiday:
-                    self._check_and_book_a_holiday(i)
-                continue
-            if working_days_counter == self.max_working:
-                for n in range(-1, 2):
+                for n in range(0, j):
                     self._check_and_book_a_holiday(i + n)
-                working_days_counter = 0
+                i += j
                 continue
+            i += 1
             working_days_counter += 1
+
 
 
     def _weekly_recommendation_booker(self):
