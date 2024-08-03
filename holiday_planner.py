@@ -4,7 +4,7 @@ from datetime import datetime, date, timedelta
 from days_to_book_off import Days_to_book_off
 
 class HolidayPlanner:
-    def __init__(self, Number_of_holidays, country, state, year, max_workdays, min_holidays, weekend_days: list) -> None:
+    def __init__(self, Number_of_holidays, country, state, year, max_workdays, min_holidays, weekend_days: list, selected_days_off: list) -> None:
         # TODO: Remove later this is only test values
         self.year = year
         self.country = country
@@ -13,6 +13,12 @@ class HolidayPlanner:
         self.max_workdays = max_workdays
         self.min_holidays = min_holidays
         self.weekend_days = weekend_days
+        self.selected_days_off = []
+        if len(selected_days_off)> 0:
+            for selected in selected_days_off:
+                
+                self.selected_days_off.append(datetime.strptime(selected, '%Y-%m-%d').date())
+        print(self.selected_days_off)
         
     def _get_all_dates_between_two_date(self, year: int) -> list:
         """Get all Dates in a year, and names of those dates
@@ -48,6 +54,7 @@ class HolidayPlanner:
 
     def _get_country_holidays(self) -> list:
         url = cfg.BANK_HOLIDAYS_URL + self.country + self.state + '/' + str(self.year)
+        print(url)
         _df = pd.read_html(url)[0]
         _df = _df[~_df['Type'].isin(['Not A Public Holiday'])]
         dates_list = _df['Date'].to_list()
@@ -59,10 +66,16 @@ class HolidayPlanner:
         country_holidays = self._get_country_holidays()
         dates_dict = []
         for i_date, date_name in zip(all_dates, all_date_names):
-            isholiday = 1 if i_date in country_holidays or date_name in self.weekend_days else 0
+            isholiday = 0
+            if (i_date in country_holidays) or (date_name in self.weekend_days) or (i_date in self.selected_days_off and 0 < self.Number_of_holidays):
+                isholiday = 1
             day_type = 'normal'
-            if 1 == isholiday and not date_name in self.weekend_days:
-                day_type = 'bank holiday'
+            if 1 == isholiday:
+                if i_date in self.selected_days_off and 0 < self.Number_of_holidays:
+                    day_type = 'Selected'
+                    self.Number_of_holidays -= 1
+                elif not date_name in self.weekend_days:
+                    day_type = 'bank holiday' 
             dates_dict.append([isholiday, date_name, day_type])
         _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict,
                                                        self.max_workdays, self.min_holidays, self.weekend_days).book_holidays()

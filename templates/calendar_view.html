@@ -30,6 +30,8 @@
                         display: 'background',
                         {%if types == 'bank holiday'%}
                         color: '#7FC8F8'
+                        {% elif types == 'Selected'%}
+                        color: '#783F8E'
                         {%else%}
                         color: '#72B01D'
                         {%endif%}
@@ -58,12 +60,20 @@
                             Bank Holidays
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-bottom:5px;">
                         <div class="col">
                             <div style="width:30px; height:30px; background-color: #72B01D;"></div>
                         </div>
                         <div class="col">
                             Suggestions
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px;">
+                        <div class="col">
+                            <div style="width:30px; height:30px; background-color: #783F8E;"></div>
+                        </div>
+                        <div class="col">
+                            Selected
                         </div>
                     </div>
                 </div>
