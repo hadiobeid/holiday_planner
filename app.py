@@ -54,7 +54,7 @@ def calendar_view(holidays_number, year, country, state, max_workdays, min_holid
     _year= int(year)
     max_workdays = int(max_workdays)
     min_holidays = int(min_holidays)
-    state = state if state != 'All' else ''
+    state = '/' + state if state != 'All' else ''
     weekend_days = get_weekend_list_days(weekend_days)
     selected_days_off = get_selected_dates_off(selected_days_off)
     holiday_planner = HolidayPlanner(int(holidays_number),country, state, int(_year), max_workdays, min_holidays, weekend_days, selected_days_off)

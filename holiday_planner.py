@@ -54,6 +54,7 @@ class HolidayPlanner:
 
     def _get_country_holidays(self) -> list:
         url = cfg.BANK_HOLIDAYS_URL + self.country + self.state + '/' + str(self.year)
+        print(url)
         _df = pd.read_html(url)[0]
         _df = _df[~_df['Type'].isin(['Not A Public Holiday'])]
         dates_list = _df['Date'].to_list()
