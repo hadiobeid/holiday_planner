@@ -4,10 +4,11 @@ from datetime import datetime, date, timedelta
 from days_to_book_off import Days_to_book_off
 
 class HolidayPlanner:
-    def __init__(self, Number_of_holidays, country, year) -> None:
+    def __init__(self, Number_of_holidays, country, state, year) -> None:
         # TODO: Remove later this is only test values
         self.year = year
         self.country = country
+        self.state = '/' + state if state else ''
         self.Number_of_holidays = Number_of_holidays 
         
     def _get_all_dates_between_two_date(self, year: int) -> list:
@@ -43,15 +44,17 @@ class HolidayPlanner:
             dates.append(date(year, month_num, day))
         return dates
 
-    def _get_country_holidays(self, country: str, year: int) -> list:
-        url = cfg.BANK_HOLIDAYS_URL + country + '/' + str(year)
-        dates_list = pd.read_html(url)[0]['Date'].to_list()
-        return self._get_date_from_date_string(dates_list, year)
+    def _get_country_holidays(self) -> list:
+        url = cfg.BANK_HOLIDAYS_URL + self.country + self.state + '/' + str(self.year)
+        _df = pd.read_html(url)[0]
+        _df = _df[~_df['Type'].isin(['Not A Public Holiday'])]
+        dates_list = _df['Date'].to_list()
+        return self._get_date_from_date_string(dates_list, self.year)
 
     
     def get_holiday_plan(self):
         all_dates, all_date_names, days_range = self._get_all_dates_between_two_date(self.year)
-        country_holidays = self._get_country_holidays(self.country, self.year)
+        country_holidays = self._get_country_holidays()
         dates_dict = []
         for i_date, date_name in zip(all_dates, all_date_names):
             isholiday = 1 if i_date in country_holidays or date_name in cfg.WEEKEND_DAYS else 0

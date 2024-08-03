@@ -16,11 +16,42 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        
+        
+        <script type="text/javascript">
+            
+        </script>
     </head>
 
     <body>
         <header>
-            <!-- place navbar here -->
+           <script>
+               function get_country_s_states(selected_country) {
+                   const countries_states = JSON.parse('{{country_states | tojson}}');
+                   console.log(countries_states);
+                var country = selected_country.value;
+                console.log(typeof(country));
+                var states_select = document.getElementById('states_select');
+                states_select.innerHTML = ''
+                states_select.style.display = "none";
+                if (countries_states[country]){
+                    
+                
+                var states = countries_states[country];
+                console.log('entered');
+                console.log(countries_states[country]);
+                states_select.style.display = "";
+                console.log('entered');
+                for(var _child in countries_states[country]){
+                    console.log(_child);
+                    var opt = document.createElement('option');
+                    opt.value = countries_states[country][_child][0];
+                    opt.innerHTML = countries_states[country][_child][1];
+                    states_select.appendChild(opt);
+                }
+                }
+            }
+            </script>
         </header>
         <main>
             <div class="container">
@@ -31,7 +62,7 @@
                 <select name="selected_year" id="selected_year">
                 </select>
                 <label for="selected_country">Select A Country</label>
-                <select name="selected_country" id="selected_country">
+                <select name="selected_country" id="selected_country" onChange="get_country_s_states(this)">
                     <option value="afghanistan">Afghanistan</option>
                     <option value="albania">Albania</option>
                     <option value="algeria">Algeria</option>
@@ -259,19 +290,22 @@
                     <option value="zimbabwe">Zimbabwe</option>
 
                 </select>
+                <select name="states_select" id="states_select" style="display: none;"></select>
                 <input type="submit" value="Submit">
                 </form>
             </div>
         </main>
         <footer>
-            <!-- place footer here -->
+            <!-- <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
+             place footer here -->
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
-         <script>
+        <!--<script type="text/javascript" src="{{url_for('static', filename='count_states.json')}}"></script>-->
+         <script language="javascript" type="text/javascript">
             var select_year = document.getElementById('selected_year')
             let today = new Date()
             let current_year = today.getFullYear();
-            for (var i= 0; i<2; i++){
+            for (var i= 0; i < 2; i++){
                 var opt = document.createElement('option');
                 opt.value = current_year + i;
                 opt.innerHTML = current_year+ i;

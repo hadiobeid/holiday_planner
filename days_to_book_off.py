@@ -29,7 +29,8 @@ class Days_to_book_off:
         return self._left_search(current_index -1, holiday_count + self.dates_dict[current_index][0], days_count + 1)
 
     def _right_search(self, current_index: int, holiday_count: int, days_count: int):
-        if self.dates_dict[current_index][1] in self.WEEKEND or current_index >= self.number_of_year_days:
+        print(self.number_of_year_days)
+        if self.dates_dict[current_index][1] in self.WEEKEND or current_index >= self.number_of_year_days - 1:
             return 1, holiday_count, days_count
         return self._right_search(current_index + 1, holiday_count + self.dates_dict[current_index][0], days_count + 1)
 

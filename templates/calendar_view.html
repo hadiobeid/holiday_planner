@@ -20,7 +20,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            let holidays_js = {{holidays | tojson}};
+            // let holidays_js = {{holidays | tojson}};
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: [
@@ -43,7 +43,6 @@
             let _startdate = new Date('01/01/{{year}}')
             calendar.gotoDate(_startdate)
               });
-
         </script>
     </head>
 
