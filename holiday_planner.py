@@ -13,7 +13,6 @@ class HolidayPlanner:
         self.max_workdays = max_workdays
         self.min_holidays = min_holidays
         self.weekend_days = weekend_days
-        print(self.weekend_days)
         
     def _get_all_dates_between_two_date(self, year: int) -> list:
         """Get all Dates in a year, and names of those dates
@@ -67,7 +66,6 @@ class HolidayPlanner:
             dates_dict.append([isholiday, date_name, day_type])
         _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict,
                                                        self.max_workdays, self.min_holidays, self.weekend_days).book_holidays()
-        print(remaining_days)
 
         holidays_dates_list = []
         day_types = []

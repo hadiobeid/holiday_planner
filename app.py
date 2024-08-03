@@ -16,9 +16,7 @@ def get_weekend_list_days(weekend_str: str):
     weekend_str = weekend_str.replace("'", '')
     weekend_list = weekend_str.split(',')
     weekend_days = []
-    print('here', weekend_days)
     for ischecked, day in zip(weekend_list, cfg.WEEK_DAYS):
-        print(ischecked, day)
         if ischecked == 'on':
             weekend_days.append(day)
     return weekend_days
