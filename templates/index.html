@@ -310,7 +310,12 @@
                 <label for="Saturday"> Saturday</label><br>
                 <input type="checkbox" name="Sunday" id="Sunday" checked>
                 <label for="Sunday"> Sunday</label><br>
-                <input type="submit" value="Submit">
+                <input type="date" min="2024-01-01" max="2024-12-31" id="select_days_off" name="select_days_off"><br>
+                <button type="button" onclick="AddDayOff()">Add Day Off</button>
+                <p>Selected Days Off</p>
+                <textarea id="selected_off" name="selected_off" rows="4" cols="50" readonly></textarea><br>
+                <input type="hidden" value="">
+                <input type="Submit" value="Submit">
                 </form>
             </div>
         </main>
@@ -329,6 +334,19 @@
                 opt.value = current_year + i;
                 opt.innerHTML = current_year+ i;
                 select_year.appendChild(opt);
+            }
+
+            function AddDayOff(){
+                var selected_date = document.getElementById('select_days_off').value;
+                var list_of_dates = document.getElementById('selected_off');
+                var val = list_of_dates.innerHTML;
+                console.log(val)
+                if (val == ''){
+                    val = selected_date;
+                }else{
+                    val = val +','+ selected_date;
+                }
+                list_of_dates.innerHTML = val;
             }
          </script>
         <script
