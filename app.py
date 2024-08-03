@@ -23,7 +23,7 @@ def home():
     else:
         return render_template('index.html', country_states = cs.countries_state_dict)
 
-@app.route('/CalendarView/<holidays_number>/<year>/<country>/<state>/max_workdays/min_holidays')
+@app.route('/CalendarView/<holidays_number>/<year>/<country>/<state>/<max_workdays>/<min_holidays>')
 def calendar_view(holidays_number, year, country, state, max_workdays, min_holidays):
     _year= int(year)
     max_workdays = int(max_workdays)
