@@ -57,10 +57,14 @@
             <div class="container">
                 <form action="{{ url_for("home")}}" method="post">
                 <label for="available_holidays">Available Holidays</label>
-                <input type="number" id="available_holidays" name="available_holidays" value="0">
+                <input type="number" id="available_holidays" name="available_holidays" value="0" min="0"><br>
+                <label for="min_holidays">Number of Days off to re-energies (Recommended 3)</label>
+                <input type="number" id="min_holidays" name="min_holidays" value="3" min="3" max="5"><br>
+                <label for="max_days">The month you need before needing a holiday (Recommended 46 days)</label>
+                <input type="number" id="max_days" name="max_days" value="46" min="1"><br>
                 <label for="selected_year">Select Year</label>
                 <select name="selected_year" id="selected_year">
-                </select>
+                </select><br>
                 <label for="selected_country">Select A Country</label>
                 <select name="selected_country" id="selected_country" onChange="get_country_s_states(this)">
                     <option value="afghanistan">Afghanistan</option>
@@ -289,8 +293,9 @@
                     <option value="zambia">Zambia</option>
                     <option value="zimbabwe">Zimbabwe</option>
 
-                </select>
+                </select><br>
                 <select name="states_select" id="states_select" style="display: none;"></select>
+
                 <input type="submit" value="Submit">
                 </form>
             </div>

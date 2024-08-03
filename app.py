@@ -29,7 +29,7 @@ def calendar_view(holidays_number, year, country, state):
     return render_template('calendar_view.html', 
                            holidays = holidays, remaining_days = remaining_days,
                            holiday_types = holiday_types, zip = zip,
-                           year=year, len=len)
+                           year=year)
 
 if __name__ == '__main__':
     app.run(debug=True)
