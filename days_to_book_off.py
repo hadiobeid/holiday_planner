@@ -3,9 +3,9 @@ from datetime import date, timedelta
 
 class Days_to_book_off:
     
-    def __init__(self, num_of_holidays: int, dates_dict: dict) -> None:
-        self.max_working = cfg.MAX_RECOMMENDED_WORKDAYS_BEFORE_HOLIDAY
-        self.min_holiday = cfg.RECOMMENDED_MIN_HOLIDAY
+    def __init__(self, num_of_holidays: int, dates_dict: dict, max_workdays: int, min_holidays: int) -> None:
+        self.max_working = max_workdays
+        self.min_holiday = min_holidays
         self.num_of_holidays = num_of_holidays
         self.remaining_holidays = num_of_holidays
         self.dates_dict = dates_dict

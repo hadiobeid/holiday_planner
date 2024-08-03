@@ -4,12 +4,14 @@ from datetime import datetime, date, timedelta
 from days_to_book_off import Days_to_book_off
 
 class HolidayPlanner:
-    def __init__(self, Number_of_holidays, country, state, year) -> None:
+    def __init__(self, Number_of_holidays, country, state, year, max_workdays, min_holidays) -> None:
         # TODO: Remove later this is only test values
         self.year = year
         self.country = country
         self.state = '/' + state if state else ''
-        self.Number_of_holidays = Number_of_holidays 
+        self.Number_of_holidays = Number_of_holidays
+        self.max_workdays = max_workdays
+        self.min_holidays = min_holidays
         
     def _get_all_dates_between_two_date(self, year: int) -> list:
         """Get all Dates in a year, and names of those dates
@@ -62,7 +64,8 @@ class HolidayPlanner:
             if 1 == isholiday and not date_name in cfg.WEEKEND_DAYS:
                 day_type = 'bank holiday'
             dates_dict.append([isholiday, date_name, day_type])
-        _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict).book_holidays()
+        _dates_dict, remaining_days = Days_to_book_off(self.Number_of_holidays, dates_dict,
+                                                       self.max_workdays, self.min_holidays).book_holidays()
         print(remaining_days)
 
         holidays_dates_list = []
