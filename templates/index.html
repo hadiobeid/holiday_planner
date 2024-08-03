@@ -45,7 +45,7 @@
                 for(var _child in countries_states[country]){
                     console.log(_child);
                     var opt = document.createElement('option');
-                    opt.value = countries_states[country][_child][0];
+                    opt.value = '/' + countries_states[country][_child][0];
                     opt.innerHTML = countries_states[country][_child][1];
                     states_select.appendChild(opt);
                 }
@@ -57,10 +57,14 @@
             <div class="container">
                 <form action="{{ url_for("home")}}" method="post">
                 <label for="available_holidays">Available Holidays</label>
-                <input type="number" id="available_holidays" name="available_holidays" value="0">
+                <input type="number" id="available_holidays" name="available_holidays" value="0" min="0"><br>
+                <label for="min_holidays">Number of Days off to re-energies (Recommended 3)</label>
+                <input type="number" id="min_holidays" name="min_holidays" value="3" min="1" max="5"><br>
+                <label for="max_days">The month you need before needing a holiday (Recommended 46 days)</label>
+                <input type="number" id="max_days" name="max_days" value="46" min="1"><br>
                 <label for="selected_year">Select Year</label>
-                <select name="selected_year" id="selected_year">
-                </select>
+                <select name="selected_year" id="selected_year" onChange="Change_Date_picker_years()">
+                </select><br>
                 <label for="selected_country">Select A Country</label>
                 <select name="selected_country" id="selected_country" onChange="get_country_s_states(this)">
                     <option value="afghanistan">Afghanistan</option>
@@ -289,9 +293,29 @@
                     <option value="zambia">Zambia</option>
                     <option value="zimbabwe">Zimbabwe</option>
 
-                </select>
+                </select><br>
                 <select name="states_select" id="states_select" style="display: none;"></select>
-                <input type="submit" value="Submit">
+                <p>Select Weekend Days:</p>
+                <input type="checkbox" name="Monday" id="Monday">
+                <label for="Monday"> Monday</label><br>
+                <input type="checkbox" name="Tuesday" id="Tuesday">
+                <label for="Tuesday"> Tuesday</label><br>
+                <input type="checkbox" name="Wednesday" id="Wednesday">
+                <label for="Wednesday"> Wednesday</label><br>
+                <input type="checkbox" name="Thursday" id="Thursday">
+                <label for="Thursday"> Thursday</label><br>
+                <input type="checkbox" name="Friday" id="Friday">
+                <label for="Friday"> Friday</label><br>
+                <input type="checkbox" name="Saturday" id="Saturday" checked>
+                <label for="Saturday"> Saturday</label><br>
+                <input type="checkbox" name="Sunday" id="Sunday" checked>
+                <label for="Sunday"> Sunday</label><br>
+                <input type="date" min="2024-01-01" max="2024-12-31" id="select_days_off" name="select_days_off"><br>
+                <button type="button" onclick="AddDayOff()">Add Day Off</button>
+                <p>Selected Days Off</p>
+                <textarea id="selected_off" name="selected_off" rows="4" cols="50" readonly></textarea><br>
+                <input type="hidden" value="">
+                <input type="Submit" value="Submit">
                 </form>
             </div>
         </main>
@@ -310,6 +334,30 @@
                 opt.value = current_year + i;
                 opt.innerHTML = current_year+ i;
                 select_year.appendChild(opt);
+            }
+
+            function AddDayOff(){
+                var selected_date = document.getElementById('select_days_off').value;
+                var list_of_dates = document.getElementById('selected_off');
+                var val = list_of_dates.innerHTML;
+                console.log(val)
+                if (val == ''){
+                    val = selected_date;
+                }else{
+                    val = val +','+ selected_date;
+                }
+                list_of_dates.innerHTML = val;
+            }
+
+            function Change_Date_picker_years(){
+                var _selected_year_val = selected_year.value;
+                console.log(_selected_year_val)
+                var select_days_off = document.getElementById('select_days_off');
+                select_days_off.setAttribute('min', _selected_year_val + '-01-01');
+                select_days_off.setAttribute('max', _selected_year_val + '-12-31');
+                var list_of_dates = document.getElementById('selected_off');
+                list_of_dates.innerHTML = '';
+                document.getElementById('select_days_off').value = '';
             }
          </script>
         <script
