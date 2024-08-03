@@ -45,7 +45,7 @@
                 for(var _child in countries_states[country]){
                     console.log(_child);
                     var opt = document.createElement('option');
-                    opt.value = countries_states[country][_child][0];
+                    opt.value = '/' + countries_states[country][_child][0];
                     opt.innerHTML = countries_states[country][_child][1];
                     states_select.appendChild(opt);
                 }
@@ -295,7 +295,21 @@
 
                 </select><br>
                 <select name="states_select" id="states_select" style="display: none;"></select>
-
+                <p>Select Weekend Days:</p>
+                <input type="checkbox" name="Monday" id="Monday">
+                <label for="Monday"> Monday</label><br>
+                <input type="checkbox" name="Tuesday" id="Tuesday">
+                <label for="Tuesday"> Tuesday</label><br>
+                <input type="checkbox" name="Wednesday" id="Wednesday">
+                <label for="Wednesday"> Wednesday</label><br>
+                <input type="checkbox" name="Thursday" id="Thursday">
+                <label for="Thursday"> Thursday</label><br>
+                <input type="checkbox" name="Friday" id="Friday">
+                <label for="Friday"> Friday</label><br>
+                <input type="checkbox" name="Saturday" id="Saturday" checked>
+                <label for="Saturday"> Saturday</label><br>
+                <input type="checkbox" name="Sunday" id="Sunday" checked>
+                <label for="Sunday"> Sunday</label><br>
                 <input type="submit" value="Submit">
                 </form>
             </div>

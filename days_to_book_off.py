@@ -3,13 +3,14 @@ from datetime import date, timedelta
 
 class Days_to_book_off:
     
-    def __init__(self, num_of_holidays: int, dates_dict: dict, max_workdays: int, min_holidays: int) -> None:
+    def __init__(self, num_of_holidays: int, dates_dict: dict, max_workdays: int, min_holidays: int, weekend_days: list) -> None:
         self.max_working = max_workdays
         self.min_holiday = min_holidays
         self.num_of_holidays = num_of_holidays
         self.remaining_holidays = num_of_holidays
         self.dates_dict = dates_dict
-        self.WEEKEND = cfg.WEEKEND_DAYS
+        self.WEEKEND = weekend_days
+        self.min_days_off_a_week = len(weekend_days)
         self.number_of_year_days = len(dates_dict) - 1
 
     def book_holidays(self):
@@ -55,7 +56,7 @@ class Days_to_book_off:
                 days.append(self.dates_dict[i + j][0])
                 j += 1
 
-            if sum(days) > 2 or working_days_counter >= self.max_working:
+            if sum(days) > self.min_days_off_a_week or working_days_counter >= self.max_working:
                 working_days_counter = 0
                 for n in range(0, j):
                     self._check_and_book_a_holiday(i + n)

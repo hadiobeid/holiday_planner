@@ -6,6 +6,7 @@ MAX_RECOMMENDED_WORKDAYS_BEFORE_HOLIDAY= 46
 RECOMMENDED_MIN_HOLIDAY = 3
 # Days Off in country
 WEEKEND_DAYS = ['Saturday', 'Sunday']
+WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 # List of Month Name and its number
 MONTH_AND_NUM = {
     'Jan': 1,
