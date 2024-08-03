@@ -64,8 +64,6 @@ class Days_to_book_off:
             i += 1
             working_days_counter += 1
 
-
-
     def _weekly_recommendation_booker(self):
         for i in range(0, len(self.dates_dict) -1):
             if 0 >= self.remaining_holidays:
