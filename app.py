@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from holiday_planner import HolidayPlanner
 import json
 import config as cfg
-import countries_states as cs
 app = Flask('Holiday Planner')
 
 global_holidays_number = 0
