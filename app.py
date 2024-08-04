@@ -78,6 +78,7 @@ def calendar_view(holidays_number, year, country, state, max_workdays, min_holid
     return render_template('calendar_view.html', 
                            holidays = holidays, remaining_days = remaining_days,
                            holiday_types = holiday_types, zip = zip,
+                           weekend_days = weekend_days,
                            year=year)
 
 if __name__ == '__main__':
