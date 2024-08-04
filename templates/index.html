@@ -19,7 +19,7 @@
         
         <style>
             body {
-                background-color: #c0c0c0;
+                background-color: #E5E4E2;
             }
     
             .container {
@@ -27,6 +27,7 @@
                 background-color: white;
                 width: 40%;
                 border-radius: 10px;
+                box-shadow: 10px 10px 5px #d9d7d5;
             }
     
             .container form {
@@ -111,7 +112,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="max_days">The month you need before needing a holiday (Recommended 46 days)</label>
+                            <label for="max_days">The days before requiring a holiday (Recommended max of 46 days)</label>
                         </div>
                         <div class="col">
                             <input type="number" id="max_days" name="max_days" value="46" min="1">
@@ -366,7 +367,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="selected_country" id="selected_country_label" style="display: none;">Select A
-                                State</label>
+                                State/Country/Region</label>
                         </div>
                         <div class="col">
                             <select name="states_select" id="states_select" class="form-select"
