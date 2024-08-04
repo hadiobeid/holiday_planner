@@ -64,8 +64,10 @@
                 var country = selected_country.value;
                 console.log(typeof(country));
                 var states_select = document.getElementById('states_select');
+                var selected_country_label = document.getElementById('selected_country_label');
                 states_select.innerHTML = ''
                 states_select.style.display = "none";
+                selected_country_label.style.display = "none";
                 if (countries_states[country]){
                     
                 
@@ -73,6 +75,7 @@
                 console.log('entered');
                 console.log(countries_states[country]);
                 states_select.style.display = "";
+                selected_country_label.style.display = "";
                 console.log('entered');
                 for(var _child in countries_states[country]){
                     console.log(_child);
